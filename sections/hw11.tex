@@ -1,0 +1,168 @@
+\documentclass{article}
+\usepackage[sc]{mathpazo}
+\linespread{1.15}  
+% \usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
+%\usepackage[sfdefault,scaled=.85]{FiraSans}
+%\usepackage{newtxsf}
+%\usepackage{mathptmx}
+%\usepackage[T1]{fontenc}
+%\usepackage{sansmathfonts} 
+%\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif  
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fullpage,enumitem,amssymb,amsmath,tikz,pgfplots,xcolor,cancel,gensymb,hyperref,graphicx,physics,tcolorbox}
+\usepackage{indentfirst}
+\setlength{\parindent}{0em}
+\graphicspath{{./images/}}
+
+\title{A Module on the Maths behind Q9 and QB}
+\author{Chris Wang}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\textit{Note: Practice questions are denoted by a blue box. There are three practice questions in this module; you are only required to do one. Animations are denoted by a red box. Sections that are labeled with ``enrichment'' are completely optional. Additionally, please answer the survey question immediately below.}
+
+\begin{tcolorbox}[arc=2mm, colback=green!10!white, colframe=green!50!black, title=\textsc{Survey Question}]
+	After reading the module and doing the associated activities, summarize, in one to two sentences, the most important concept you learned through the module. Please also state which graduating class you are in (this is to help with some survey results). If you have already seen everything in this module before, ``nothing'' is also a valid answer. Additionally, if anything was particularly confusing, please make a note of it here too.
+\end{tcolorbox}
+
+\section*{Normalizing Wavefunctions}
+
+In Q9, you saw how we could express a q-vector in continuous parameter spaces (wavefunctions) and some properties associated with the wavefunctions, such as the collapse of the wavefunction, normalization, and the Heisenberg Uncertainty Principle. 
+
+\vspace{1em}
+
+First, let's quickly recap going from q-vectors to wavefunctions. In general, q-vectors describe the possible states of a quantum system, like how we had two-component q-vectors that described spin states. We can also describe q-vectors for position and momentum space, except they would be infinite-dimensional, as seen in the \textit{Six Ideas} text; they are infinite-dimensional because we can have an infinite number of possible positions or momenta, these spaces are continuous. In this continuum picture, the q-vectors are more conveniently described by wavefunctions, and the inner product $\braket{x}{\psi}$ can be more easily interpreted as $\psi(x)$, the so-called ``probability amplitude'' of finding our state $\ket{\psi}$ at position $x$.
+
+\begin{tcolorbox}[arc=2mm, colback=magenta!15!white, colframe=magenta!80!black, title=\textsc{Hilbert Spaces (Enrichment)}]
+    The q-vectors live in a type of mathematical space called a vector space (if you've taken or are taking linear algebra, you're familiar with this). However, familiar vector spaces are all finite, and strange things, especially regarding keeping inner products finite, happen when we venture into the infinite. To make things mathematically rigorous, mathematicians formalized a special type of space called a \textbf{Hilbert Space}, which does address convergence issues that arise in infinite-dimensional spaces. The position and momentum spaces that you encounter in Q9 are examples of Hilbert Spaces.
+\end{tcolorbox}
+
+Let's now segue into normalization. Remember the dot product between two q-vectors and how its magnitude squared can be interpreted as a probability? If we add up probabilities of a q-vector being in all states of a physical system, we should get 1. After all, the state q-vector has to take on some value! This is the idea behind normalization.
+
+\vspace{1em}
+
+Let's take the $z$-spin q-vector as an example. If I have an artbitrary q-vector $\ket{\psi}$ in this physical system, I know it has to either be spin up or down. Therefore $P(\psi \to +z) + P(\psi \to -z) = 1$, where $P(\psi \to +z) = |\braket{+z}{\psi}|^2$ and $P(\psi \to -z) = |\braket{-z}{\psi}|^2$ (review Q7.4 rule 4 if you are not convinced). In this formalism, 
+\[
+|\braket{+z}{\psi}|^2 + |\braket{-z}{\psi}|^2 = 1.
+\]
+
+Extending this to our position space, we \textit{integrate} instead of sum over the states (remember that integration is the continuum analogue of discrete summation), yielding the corresponding normalization condition for our wavefunction:
+\[
+\int_{-\infty}^{\infty} |\braket{x}{\psi}|^2 \dd{x} = \int_{-\infty}^{\infty} \underbrace{\psi(x) \psi^*(x)}_{|\psi(x)|^2} \dd{x} = 1.
+\]
+
+Thankfully, the wavefunctions we're interested in are all real, meaning $|\psi(x)|^2 = \psi(x)^2$.
+
+\begin{tcolorbox}[colframe=blue!50!black, arc=2mm, title=\textsc{Practice 1}]
+    Suppose a wavefunction in position space is given by 
+    \[
+    \psi(x) = \begin{cases}
+    A\, (1-(x/L)^{2n}) & \text{if } |x| \le L \\
+    0 & \text{otherwise}.
+    \end{cases}
+    \]
+    \begin{enumerate}[label=(\alph*)]
+    \item Supposing $\psi(x)$ is normalized and $n$ is a positive integer, find the value of $A$. \textit{Hint: the power law for integrals states that $\int \alpha x^n \, \dd x = \alpha x^{n+1} / (n+1)$. Let $\alpha = L^{-2n}$ and integrate from $-L$ to $L$.}
+    \item What value does $A$ approach as $n \to \infty$? You can deduce this by taking the limit of $A$, which from (a) should depend on $n$.
+    \end{enumerate}
+\end{tcolorbox}
+
+\section*{More Boundary Conditions}
+
+\begin{tcolorbox}[arc=2mm, colback=white]
+    \subsection*{A Brief Note on Eigen-stuff}
+    Before we transition to discussing the specific math behind QB, let's briefly discuss eigenvalues, eigenvectors, and eigenfunctions. This box is especially helpful if you haven't worked with these things in a linear algebraic context. The prefix ``eigen'' comes from the German word for ``own'' or ``characteristic'', and we can think of determining eigenvalues, eigenvectors, and eigenfunctions as finding values, vectors, or functions that are characteristic of some transformation. 
+    
+    \vspace{1em}
+    
+    What does that mean? For \textbf{eigenvectors}, we seek vectors that don't change direction when we apply a transformation or operation on them. Essentially, the post-operation vector is just a scaled version of the pre-operation vector. The scaling factor is known as the \textbf{eigenvalue}. For \textbf{eigenfunctions}, we're looking for functions that don't change form when we apply an operator to them. The eigenvalue is the value that the operator returns when applied to the eigenfunction.
+\end{tcolorbox}
+
+\begin{tcolorbox}[arc=2mm, colback=white]
+    For instance, 
+    \[
+    \text{if }\vec{v} = \begin{bmatrix}
+        1 \\ 2
+    \end{bmatrix},
+    \text{ and } M\vec{v} = \begin{bmatrix}
+        -2 \\ -4
+    \end{bmatrix} = -2\vec{v} \text{ for some matrix }M,
+    \]
+    then we say $\vec{v}$ is an eigenvector of $M$ with eigenvalue $-2$. Similarly, if $f(x)=\sin(kx)$, and the $\Delta$ operator correponded to taking the derivative with respect to $x$ twice, then $\Delta f(x) = -k^2 f(x)$, so $\sin(kx)$ is an eigenfunction of the $\Delta$ operator with eigenvalue $-k^2$.
+
+    \vspace{1em}
+
+    Applying this to our particular context, the functions that you work with in QB have the form 
+    \[
+    \psi_{E_n} (x) = \sqrt{\frac{2}{L}} \sin\left(\frac{n\pi x}{L}\right) \text{ when }0\le x \le L \text{ and } 0 \text{ otherwise}.
+    \]
+    These are eigenfunctions of the \textbf{Hamiltonian operator} $\hat{H}$ with \textbf{energy eigenvalue} $E_n$, meaning the equation $\hat{H}\psi_{E_n}(x) = E_n \psi_{E_n}$ holds. The Hamiltonian operator $\hat{H}$ is the operator version of the Hamiltonian $H$, which is a quantity that tells us the total energy (kinetic + potential) of the system. Hence, it makes sense why the operator's eigenvalues are $E_n$! The Hamiltonian is something you will explore in more detail in upper-division mechanics.
+    \begin{tcolorbox}[arc=2mm, colback=magenta!15!white, colframe=magenta!80!black, title=\textsc{More on the Hamiltonian Operator (Enrichment)}]
+        For those of you who have more experience with differential equations, you can explicitly show that the equation above holds, which is known as the (time-independent) \textbf{Schrödinger equation}. The Hamiltonian operator for the box has the form
+        \[
+        \hat{H} = -\frac{\hbar^2}{2m} \dv[2]{x} \text{ when }0\le x \le L,
+        \]
+        and using the fact that $\dv[2]{x} \sin(kx) = -k^2 \sin(kx)$, you can show that $\hat{H}\psi_{E_n}(x) = E_n \psi_{E_n}$, where $E_n$ is as in QB.6b.
+    \end{tcolorbox}
+    For a visual on how eigenvectors behave, complete the activity below.
+    \begin{tcolorbox}[arc=2mm, colback=red!10!white, colframe=red!50!black, title=\textbf{ACTIVITY}]
+                Watch the animation $\rightarrow$ \textcolor{red}{\href{https://youtu.be/Lh_dd04MtTY}{here}}, which illustrates how eigenvectors (and non-eigenvectors) behave under a transformation. Note that eigenvalues can also be negative, in which case the transformation ``flips" the eigenvector.
+            \end{tcolorbox}
+\end{tcolorbox}
+
+Now that we have the basic form of our eigenfunctions, we can discuss the boundary conditions they must satisfy. In fact, Prof. Moore derives the coefficient within the sine functions by imposing the boundary conditions on the wavefunction (equations QB.3 and QB.4). For our quanton in a box, or any other quantum system with an infinite potential well outside a finite spatial range, our wavefunction must be zero outside the box and at its boundary. Intuitively, if the potential energy required to be in such regions is infinite, there's no way the quanton can be there!
+
+\begin{tcolorbox}[colframe=blue!50!black, arc=2mm, title=\textsc{Practice 2}]
+    Suppose we have a quanton in a box, just like in QB. If we hypothetically imagined the potential to spike to infinity exactly halfway between the walls of the box (and remain zero elsewhere), which of the energy levels would now be \textit{prohibited}? Why? \textit{Hint: refer to Figure QB.3 for some intuition. Also, this is slightly similar to the cello example from two weeks ago.}
+\end{tcolorbox}
+
+\section*{Calculating The Probability of Finding a Quanton in an Eigenstate}
+
+In Q7.4, Prof. Moore discusses the rules of quantum mechanics. Rule 4, in paricular, tells us that the probability of finding a quanton $\ket{\psi}$ in an observable eigenstate $\ket{a_n}$ is $|\braket{a_n}{\psi}|^2$. We can extend this: if we prepare two quantons $\ket{\psi}$ and $\ket{\phi}$, the probability of finding $\ket{\psi}$ in the state $\ket{\phi}$ is $|\braket{\phi}{\psi}|^2$. For a set of observable eigenstates $\ket{a_k},$ where $k$ ranges from 1 to $n$, such a probability can be rewritten:
+
+\[
+\left| \braket{\psi}{\phi} \right| ^ 2 = \left| \sum_{k=1}^n \braket{\psi}{a_k} \braket{a_k}{\phi} \right|^2
+\]
+
+Intuitively, this gives us a sense of how ``similar'' $\ket{\psi}$ and $\ket{\phi}$ are. After all, $|\braket{\psi}{\phi}|^2$ is the magnitude squared of the dot product of the two vectors.
+
+\vspace{1em}
+
+We close off this module with an extension to the continuum: finding the probability of two wavefunctions ``overlapping''. This is sometimes called the ``overlap integral'', which intuitively tells us how similar two wavefunctions are. In the context of QB, we can use this to find the probability of finding a quanton in a particular energy eigenstate. Using q-vector notation, the probability of finding a \textit{normalized} quanton $\ket{\psi}$ in another \textit{normalized} state $\ket{\phi}$ is nothing more than the magnitude squared of the inner product $\braket{\phi}{\psi}$, or $|\braket{\phi}{\psi}|^2$.
+
+\vspace{1em}
+
+If we write this in position space, we have
+\[
+\left| \braket{\phi}{\psi} \right| ^2 = \left| \int_{-\infty}^\infty \braket{\phi}{x} \braket{x}{\psi}\, \dd x \right|^2 = \left| \int_{-\infty}^\infty \phi^*(x) \psi(x)\, \dd x \right|^2.
+\]
+Of course, in relevant cases, our wavefunctions are real, so $\phi^*(x) \mapsto \phi(x)$. 
+
+\begin{tcolorbox}[arc=2mm, colback=magenta!15!white, colframe=magenta!80!black, title=\textsc{Function Space Decomposition (Enrichment)}]
+    It turns out that we can write any arbitrary function defined over a finite interval (either $[0,L]$ or $[-L,L]$) as a sum of the energy eigenfunctions of a quanton in a box. This sum may be infinite, but it's a powerful result that allows us to decompose any function into its constituent energy eigenstates. This is known as a \textbf{Fourier Decomposition}. This is possible by the \textbf{completeness relations} of the energy eigenfunctions. Generally, the completeness relations tell us that a set of basis vectors (or, in this case, functions) can span the entire relevant vector/function space – our function space is the space of periodic functions in this case. The completeness relations for position space also allowed us to write the inner product as we did right above Practice 1, and you will see more of the details when you take an upper level course in quantum mechanics. 
+\end{tcolorbox}
+
+\begin{tcolorbox}[colframe=blue!50!black, arc=2mm, title=\textsc{Practice 3}]
+    In QB.D2, you're asked to prove that the normalization constant for all quanton in a box energy eigenstates are $\sqrt{2 / L}$. For this question, let's assume $L=1$ and assume the prior statement is true.
+    \begin{enumerate}[label=(\alph*)]
+        \item Let 
+        \[
+        \phi(x) = \begin{cases}
+            \sqrt{30}\,x(1-x) & \text{if } 0 \le x \le 1 \\
+            0 & \text{otherwise},
+        \end{cases}
+        \]
+        which is normalized (you don't have to prove this). Set up the integral that will allow you to find the probability of $\phi(x)$ being in the $n=1$ energy eigenstate of our particle in a box.
+        \item Find the probability of $\phi(x)$ being in the $n=2$ energy eigenstate for our particle in a box. Feel free to use an integral calculator to evaluate the resulting integral. If it helps, graph the functions $\phi(x)$ and $\psi_{E_2}(x)$. Can you rationalize the result?
+    \end{enumerate}
+\end{tcolorbox}
+
+
+
+
+
+\end{document}

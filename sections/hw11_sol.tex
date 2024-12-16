@@ -1,0 +1,106 @@
+\documentclass{article}
+\usepackage[sc]{mathpazo}
+\linespread{1.15} 
+%\usepackage[sfdefault,scaled=.85]{FiraSans}
+%\usepackage{newtxsf}
+%\usepackage{mathptmx}
+%\usepackage[T1]{fontenc}
+%\usepackage{sansmathfonts} 
+%\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif  
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fullpage,enumitem,amssymb,amsmath,tikz,pgfplots,xcolor,cancel,gensymb,hyperref,graphicx,physics,tcolorbox}
+\usepackage{indentfirst}
+\setlength{\parindent}{0em}
+\graphicspath{{./images/}}
+
+\title{Solutions for HW11}
+\author{Chris Wang}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{tcolorbox}[colframe=blue!50!black, arc=2mm, title=\textsc{Practice 1}]
+    Suppose a wavefunction in position space is given by 
+    \[
+    \psi(x) = \begin{cases}
+    A\, \sqrt{1-(x/L)^{2n}} & \text{if } |x| \le L \\
+    0 & \text{otherwise}.
+    \end{cases}
+    \]
+    \begin{enumerate}[label=(\alph*)]
+    \item Supposing $\psi(x)$ is normalized and $n$ is a positive integer, find the value of $A$. \textit{Hint: the power law for integrals states that $\int \alpha x^n \, \dd x = \alpha x^{n+1} / (n+1)$. Let $\alpha = L^{-2n}$ and integrate from $-L$ to $L$.}
+    \item What value does $A$ approach as $n \to \infty$? You can deduce this by taking the limit of $A$, which from (a) should depend on $n$.
+    \end{enumerate}
+\end{tcolorbox}
+
+\textit{Solution}:
+
+\begin{enumerate}[label=(\alph*)]
+    \item We know that 
+    \[
+    \int_{-\infty}^{\infty} A^2 (1-(x/L)^{2n}) \, \dd x = 1.
+    \]
+    Evaluating the integral, we get
+    \begin{align*}
+    A^2 \int_{-L}^{L} (1-(x/L)^{2n}) \, \dd x &= A^2 \left( x-\frac{x^{2n+1}}{L^{2n}(2n+1)} \right)\bigg|_{-L}^{L} \\[0.8em]
+    &= A^2 \left( 2L - \frac{L}{2n+1} + \frac{(-L)^{2n+1}}{L^{2n}(2n+1)}  \right) \\[0.8em]
+    &= A^2 \left( 2L - \frac{2L}{2n+1} \right) \\[0.8em]
+    &= 2A^2 L \left( \frac{2n}{2n+1} \right) = 1.
+    \end{align*}
+    Therefore,
+    \[
+    A^2 = \frac{2n+1}{4nL} \quad \implies \quad A = \sqrt{\frac{2n+1}{4nL}}.
+    \]
+    \item As $n\to\infty$, we see that $2n+1 \simeq 2n$, and so $A \simeq \sqrt{1/(2L)}$.
+\end{enumerate}
+
+\begin{tcolorbox}[colframe=blue!50!black, arc=2mm, title=\textsc{Practice 2}]
+    Suppose we have a quanton in a box, just like in QB. If we hypothetically imagined the potential to spike to infinity exactly halfway between the walls of the box (and remain zero elsewhere), which of the energy levels would now be \textit{prohibited}? Why? \textit{Hint: refer to Figure QB.3 for some intuition. Also, this is slightly similar to the cello example from two weeks ago.}
+\end{tcolorbox}
+
+\textit{Solution}:
+
+\vspace{1em}
+
+If the potential spikes to infinity halfway between the walls, we have another boundary condition to be aware of: the wavefunction must vanish at the midpoint. Inspecting Figure QB.3, we see that odd energy levels of the particle in a box \textbf{do not} have nodes at the midpoint, while even energy levels \textbf{do}. Therefore, the odd energy levels would be prohibited. 
+
+\vspace{1em}
+
+Mathematically, we can also prove this: since the $n=2$ energy level is the first energy level to have a node at the midpoint, all integer multiples of this energy level will also have nodes at the midpoint, satisfying this new boundary condition. Therefore, the odd energy levels are prohibited.
+
+\newpage
+
+\begin{tcolorbox}[colframe=blue!50!black, arc=2mm, title=\textsc{Practice 3}]
+    In QB.D2, you're asked to prove that the normalization constant for all quanton in a box energy eigenstates are $\sqrt{2 / L}$. For this question, let's assume $L=1$ and assume the prior statement is true.
+    \begin{enumerate}[label=(\alph*)]
+        \item Let 
+        \[
+        \phi(x) = \begin{cases}
+            \sqrt{30}\,x(1-x) & \text{if } 0 \le x \le 1 \\
+            0 & \text{otherwise},
+        \end{cases}
+        \]
+        which is normalized (you don't have to prove this). Set up the integral that will allow you to find the probability of $\phi(x)$ being in the $n=1$ energy eigenstate of our particle in a box.
+        \item Find the probability of $\phi(x)$ being in the $n=2$ energy eigenstate for our particle in a box. Feel free to use an integral calculator to evaluate the resulting integral. If it helps, graph the functions $\phi(x)$ and $\psi_{E_2}(x)$. Can you rationalize the result?
+    \end{enumerate}
+\end{tcolorbox}
+
+\textit{Solution}:
+
+\begin{enumerate}[label=(\alph*)]
+    \item Our probability is $\left| \braket{\phi}{\psi_{E_1}} \right|^2$, which can be written in integral form as
+    \[
+    \left| \braket{\phi}{\psi_{E_1}} \right|^2 = \left| \int_0^1 \braket{\phi}{x} \braket{x}{\psi_{E_1}} \, \dd x \right|^2 = \left| \int_{0}^{1} \sqrt{30}\,x(1-x) \cdot \sqrt{2} \sin \left( \pi x \right) \, \dd x \right|^2.
+    \]
+    \item The probability of $\phi(x)$ being in the $n=2$ energy eigenstate is
+    \[
+    \left| \braket{\phi}{\psi_{E_2}} \right|^2 = \left| \int_{0}^{1} \sqrt{30}\,x(1-x) \cdot \sqrt{2} \sin \left( 2 \pi x \right) \, \dd x \right|^2.
+    \]
+    Using an integral calculator, we find $\left| \braket{\phi}{\psi_{E_2}} \right|^2 =0$. We see that, graphically, over the interval $[0,1]$, the function $\phi(x)$ looks like a parabola symmetric about $x=1/2$, while $\psi_{E_2}$ changes sign at $x=1/2$ and appears to ``cancel itself out''. Mutliplying these functions yields another function that appears to ``cancel itself out'' over the unit interval, which is why the probability is zero.
+\end{enumerate}
+
+
+
+\end{document}

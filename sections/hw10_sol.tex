@@ -1,0 +1,189 @@
+\documentclass{article}
+\usepackage[sc]{mathpazo}
+\linespread{1.15}  
+% \usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
+%\usepackage[sfdefault,scaled=.85]{FiraSans}
+%\usepackage{newtxsf}
+%\usepackage{mathptmx}
+%\usepackage[T1]{fontenc}
+%\usepackage{sansmathfonts} 
+%\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif  
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fullpage,enumitem,amssymb,amsmath,tikz,pgfplots,xcolor,cancel,gensymb,hyperref,graphicx,physics,tcolorbox}
+\usepackage{indentfirst}
+\setlength{\parindent}{0em}
+\graphicspath{{./images/}}
+
+\title{Solutions for HW10}
+\author{Chris Wang}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{tcolorbox}[colframe=blue!50!black, arc=2mm, title=\textsc{Practice 1}]
+    Consider a mysterious physical system that can take on three physical states: $A,B,C$. State $\ket{\alpha}$ has two particles in state $A$ and one particle in state $B$, so 
+    \[
+    \ket{\alpha} = \begin{bmatrix}
+    2 \\
+    1 \\
+    0
+    \end{bmatrix}.
+    \]
+    Meanwhile, state $\ket{\beta}$ has one particle in state $B$ and two particles in state $C$, so
+    \[
+    \ket{\beta} = \begin{bmatrix}
+    0 \\
+    1 \\
+    2
+    \end{bmatrix}.
+    \]
+    \begin{enumerate}[label=\alph*)]
+        \item Calculate $\braket{\alpha}$. Remember that $\bra{\alpha}$ is the row vector version of $\ket{\alpha}$.
+        \item Calculate $\braket{\beta}$.
+        \item How similar are the two states $\ket{\alpha}$ and $\ket{\beta}$? Essentially, what is
+        \begin{equation}
+            \frac{\braket{\alpha}{\beta}}{\sqrt{\braket{\alpha}\braket{\beta}}}?
+            \label{eq: inprod}
+        \end{equation}
+        \item What is the maximum attainable value of the expression in Eq. \ref{eq: inprod}? Consider arbitrary q-vectors $\ket{\alpha}$ and $\ket{\beta}$. \textit{Hint: you can make qualitative or quantitative arguments here.}
+    \end{enumerate}
+
+\end{tcolorbox}
+
+\newpage
+
+\textit{Solution:}
+
+\vspace{1em}
+
+\begin{enumerate}[label=\alph*)]
+    \item 
+    \[
+    \braket{\alpha} = \begin{bmatrix}
+    2 & 1 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+    2 \\
+    1 \\
+    0
+    \end{bmatrix}
+    = 2^2 + 1^2 + 0^2= |\alpha|^2 = 5.
+    \]
+    \item 
+    \[
+    \braket{\beta} = \begin{bmatrix}
+    0 & 1 & 2
+    \end{bmatrix}
+    \begin{bmatrix}
+    0 \\
+    1 \\
+    2
+    \end{bmatrix}
+    = 0^2 + 1^2 + 2^2 = |\beta|^2 = 5.
+    \]
+    \item The reason we have the denominator is to noramlize the inner product. With this in mind, we have that 
+    \[
+    \frac{\braket{\alpha}{\beta}}{\sqrt{\braket{\alpha}\braket{\beta}}} = \frac{\braket{\alpha}{\beta}}{|\alpha| \, |\beta|}
+    \]
+    Now, we can calculate the numerator:
+    \[
+    \braket{\alpha}{\beta} = \begin{bmatrix}
+    2 & 1 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+    0 \\
+    1 \\
+    2
+    \end{bmatrix}
+    = 2(0) + 1(1) + 0(2) = 1.
+    \]
+    Therefore,
+    \[
+    \frac{\braket{\alpha}{\beta}}{\sqrt{\braket{\alpha}\braket{\beta}}} = \frac{1}{\sqrt{5} \sqrt{5}} = \frac{1}{5}.
+    \]
+    \item The maximum value of the expression in Eq. \ref{eq: inprod} can be obtained when we just set the q-vectors to be the same (this does indeed reflect maximal similarity!). In this case, we have that
+    \[
+    \frac{\braket{\alpha}{\alpha}}{\sqrt{\braket{\alpha}\braket{\alpha}}} = \frac{|\alpha|^2}{\sqrt{|\alpha|^2\,|\alpha|^2}} = \frac{|\alpha|^2}{|\alpha|^2} = 1.
+    \]
+\end{enumerate}
+
+\newpage
+
+\begin{tcolorbox}[colframe=blue!50!black, arc=2mm, title=\textsc{Practice 2}]
+    A beam of electrons are sent through a Stern-Gerlach apparatus, like the SG machines in Q7. The beam is initially in some state $\ket{+\theta}$ as in Table Q7.1. As it passes through an $SG_z$ detector, the following data is recorded:
+    \begin{center}
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{State} & \textbf{Counts} \\
+    \hline
+    Spin up & 75 \\
+    Spin down & 25 \\
+    \hline
+    \end{tabular}
+    \end{center}
+    \begin{enumerate}[label=\alph*)]
+        \item What is $\theta$? \textit{Hint: the probabilities are \textbf{normalized}, meaning $|\braket{+\theta}{+z}|^2 + |\braket{+\theta}{-z}|^2 =1$.}
+        \item What would the data look like if the initial state was instead $\ket{-x}$?
+    \end{enumerate}
+\end{tcolorbox}
+
+\textit{Solution:}
+
+\vspace{1em}
+
+\begin{enumerate}[label=\alph*)]
+    \item Using the hint, we first calculate
+    \[
+    \braket{+\theta}{+z} = \cos(\theta / 2), \quad \braket{+\theta}{-z} = \sin(\theta / 2).
+    \]
+    One can see that the normalization condition is a good sanity check, as
+    \[
+    |\braket{+\theta}{+z}|^2 + |\braket{+\theta}{-z}|^2 = \cos^2(\theta) + \sin^2(\theta) = 1.
+    \]
+    However, we also know that the probabilities are
+    \[
+    P(+z) = |\braket{+\theta}{+z}|^2 = \cos^2(\theta / 2) = \frac{75}{100} = \frac{3}{4}, \quad P(-z) = |\braket{+\theta}{-z}|^2 = \sin^2(\theta / 2) = \frac{25}{100} = \frac{1}{4}.
+    \]
+    With this in mind, we can solve for $\theta$, which technically yields two solutions. We will focus on one for now, where 
+    \[
+    \theta = 2 \cos^{-1}\left(\sqrt{\frac{3}{4}}\right) = 2 \cos^{-1}\left(\frac{\sqrt{3}}{2}\right) = 2 \times \frac{\pi}{6} = \frac{\pi}{3}.
+    \]
+    Another valid solution is $\theta = -\pi / 3$.
+    \item If the initial state was $\ket{-x}$, then the probabilities would be
+    \[
+    P(+z) = |\braket{-x}{+z}|^2 = \frac{1}{2}, \quad P(-z) = |\braket{-x}{-z}|^2 = \frac{1}{2}.
+    \]
+    Therefore, the data would be
+    \begin{center}
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{State} & \textbf{Counts} \\
+    \hline
+    Spin up & 50 \\
+    Spin down & 50 \\
+    \hline
+    \end{tabular}
+    \end{center}
+\end{enumerate}
+
+\newpage
+
+\begin{tcolorbox}[colframe=blue!50!black, arc=2mm, title=\textsc{Practice 3}]
+    Consider the two q-vectors $\ket{\psi} = \begin{bmatrix} 1+i \\ -1 \end{bmatrix}$ and $\ket{\phi} = \begin{bmatrix} 1+i \\ 2 \end{bmatrix}$. Are they orthogonal?
+\end{tcolorbox}
+
+\textit{Solution}:
+
+\vspace{1em}
+
+Let's take their (Hermitian) inner product:
+\[
+\braket{\psi}{\phi} = \begin{bmatrix} 1-i & -1 \end{bmatrix} \begin{bmatrix} 1+i \\ 2 \end{bmatrix} = (1-i)(1+i) + (-1)(2) = 1 +i -i + 1 - 2 = 0.
+\]
+Since the inner product is zero, the two q-vectors are orthogonal.
+
+
+\end{document}

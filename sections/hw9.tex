@@ -1,0 +1,194 @@
+\documentclass{article}
+\usepackage[sc]{mathpazo}
+\linespread{1.15}  
+% \usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
+%\usepackage[sfdefault,scaled=.85]{FiraSans}
+%\usepackage{newtxsf}
+%\usepackage{mathptmx}
+%\usepackage[T1]{fontenc}
+%\usepackage{sansmathfonts} 
+%\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif  
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fullpage,enumitem,amssymb,amsmath,tikz,pgfplots,xcolor,cancel,gensymb,hyperref,graphicx,physics,tcolorbox}
+\usepackage{indentfirst}
+\setlength{\parindent}{0em}
+\graphicspath{{./images/}}
+
+\title{A Module on the Maths behind Q1,Q2,Q3,Q5}
+\author{Chris Wang}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\textit{Note: Practice questions are denoted by a blue box. There are three practice questions in this module; you are only required to do one. Animations are denoted by a red box. You are strongly encouraged to watch them (they are also only about 40 seconds long each)! Sections that are labeled with ``enrichment'' are completely optional. Additionally, please answer the survey question immediately below.}
+
+\begin{tcolorbox}[arc=2mm, colback=green!10!white, colframe=green!50!black, title=\textsc{Survey Question}]
+	After reading the module and doing the associated activities, summarize, in one to two sentences, the most important concept you learned through the module. If you have already seen everything in this module before, ``nothing'' is also a valid answer.
+\end{tcolorbox}
+
+\subsection*{Traveling Waves}
+
+There are a number of important quantities associated with traveling wave, whose ``wiggle function" is presented again below:
+\begin{equation}
+	w(t,x) = A \sin(kx-\omega t) \tag{linear wave}
+\end{equation}
+
+Below, we have a table of important quantities associated with the wave:
+\begin{center}
+\begin{tabular}{| c | c |}
+	\hline
+	Quantity & Intuition \\
+	\hline
+	$A$ & Amplitude of the wave, how ``tall'' the wave is. \\
+	\hline
+	$f$ & Frequency of the wave, or how many cycles\\ 
+	& of a wave passes through a point per second. \\
+	\hline
+	$\omega$ & Angular frequency, $\omega = 2\pi f$. Like frequency, but \\
+	& measures the angular ``distance'' a wave elapses \\
+	& per second in radians / second. \\
+	\hline
+	$\lambda$ & Wavelength of the wave, or the distance between \\
+	& two crests of the wave. \\
+	\hline
+	$k$ & Wave number, $k = 2\pi / \lambda$. Essentially, how many \\
+	& wave cycles you can fit into some (unit) length. \\
+	\hline
+	$|\vec{v}|$ & Wave speed or phase velocity, $|\vec{v}| = f\lambda = \omega / k$\\ 
+	& gives an idea of how fast the wave appears to travel. \\
+	\hline
+	$T$ & Period of the wave, $T = \frac{1}{f}$, gives a sense \\
+	& of how long it takes for a wave to complete a \\
+	& cycle through a certain point. \\
+	\hline
+\end{tabular}
+\end{center}
+
+
+\begin{tcolorbox}[arc=2mm, colback=red!10!white, colframe=red!50!black, title=\textbf{ACTIVITY}]
+	Watch the animation $\rightarrow$ \textcolor{red}{\href{https://youtu.be/CHYc6YgaYY8}{here}}, which visualizes a few properties of waves seen above.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colframe=blue!50!black, arc=2mm, title=\textsc{Practice 1}]
+	\begin{enumerate}[label=(\alph*)]
+		\item Intuitively explain why, if we double the wavenumber ($k$) of a wave while keeping the angular frequency ($\omega$) constant, the phase velocity ($|\vec{v}|$) halves. \textit{Think about the definition of angular velocity and how the wavenumber is visually related to wavelength.}
+		\item Momentum of a particle is typically given by $p = h / \lambda = \hbar\, k$, where $k$ is the wave number and $\hbar = h / 2\pi$. If the momentum of a particle is doubled, what do you expect happens to its (de Broglie) wavelength? 
+	\end{enumerate}
+\end{tcolorbox}
+
+\subsection*{Superposition, Standing Waves, and Boundary Conditions}
+
+Most waves a physicist deals with in the same context will be superposable, meaning we can meaningfully add two traveling waves together to get a new wave. The mathematical reason behind this is that the algebraic form of these waves are solutions of something called the \textbf{wave equation}, which is a second-order partial differential equation that describes how waves propagate. 
+
+\begin{tcolorbox}[arc=2mm, title=\textsc{The Wave Equation (Enrichment)}]
+	While this is not something you need to worry about for now, if you are interested, the form of the wave equation is 
+	\[
+		\pdv[2]{w}{t} = v^2 \pdv[2]{w}{x},
+	\]
+	where $w$ describes the wave solution and $v$ is the wave speed. If you are familiar with differential equations and want to try an extra problem, show that the wave function $w(t,x) = A\sin(kx-\omega t) + B\sin(kx+\omega t)$ is a solution to the wave equation.
+\end{tcolorbox}
+
+It turns out, as you will learn in a differential equations course, that solutions to the wave equation are linear, meaning that if $w_1(t,x)$ and $w_2(t,x)$ are solutions to the wave equation, then $c_1 w_1(t,x) + c_2 w_2(t,x)$ is also a solution to the wave equation ($c_1,c_2$ are real numbers). This is why we can add waves together and get a new wave. The principle that describes this is known as the \textbf{superposition principle}.
+
+\vspace{1em}
+
+Under special circumstances, two traveling waves can add to form a \textbf{standing wave}. Recall from Q2 that such a standing wave can be formed by an incident wave and reflected wave that are superposed. In particular,
+\begin{equation*}
+	w_\text{incident} = A\sin(kx- \omega t) \tag{incident wave}
+\end{equation*}
+\begin{equation*}
+	w_\text{reflected} = A\sin(kx + \omega t), \tag{reflected wave}
+\end{equation*}
+which gives us the standing wave
+\begin{equation}
+	w_\text{standing} = 2A\sin(kx)\cos(\omega t). \tag{standing wave}
+\end{equation}
+
+To help further visualize this, complete the activity below.
+
+\begin{tcolorbox}[arc=2mm, colback=red!10!white, colframe=red!50!black, title=\textbf{ACTIVITY}]
+	Some properties of the standing wave, in particular its oscillatory nature as determined by $\cos(\omega t)$, is shown in this $\rightarrow$ \textcolor{red}{\href{https://youtu.be/L-QUKxQPHf8}{animation}}.
+\end{tcolorbox}
+
+\vspace{1em}
+
+Before we go further, it is useful to review some vocabulary: for any standing wave, the \textbf{nodes} are the points where the wave is always zero, while the \textbf{antinodes} are the points where the wave oscillates between its extrema.
+
+\vspace{1em}
+
+Fixing the nodes and antinodes of a standing wave can lead to important results. For example, if a string is fixed to both ends, like a guitar or cello string, the ends of the string must be nodes: the string is restricted from moving around at the ends. This is an example of a \textbf{boundary condition}, which is a condition that must be satisfied by the wave at the boundaries of the system. To introduce the vocabulary, the aforementioned boundary condition falls into a category of boundary conditions known as \textbf{Dirichlet boundary conditions}. More generally, Dirichlet boundary conditions are conditions that specify the value of the wave at the boundaries of the system.
+
+\vspace{1em}
+
+% \begin{tcolorbox}[arc=2mm, title=\textsc{Neumann Boundary Conditions (Enrichment)}]
+% 	Another type of boundary condition is the \textbf{Neumann boundary condition}, which specifies the derivative of the wave at the boundaries of the system. For example, if a string is free to move around at the ends, the slope of the string at the ends must vanish, meaning the ends of the string must be antinodes.
+% \end{tcolorbox}
+
+Because nodes ($\sin (n\pi) = 0$ for an integer $n$) and antinodes ($\sin(n\pi + \pi / 2) = \pm 1$) of the wave correspond to multiple solutions, we can have multiple standing waves that satisfy the boundary conditions. The set of all possible standing waves that satisfy the boundary conditions is known as the \textbf{normal modes} of the system, where the solution corresponding to the lowest frequency is known as the \textbf{fundamental mode}, and all higher modes, which are integer multiples of the fundamental frequency, are known as the \textbf{harmonics}.
+
+\vspace{1em}
+
+Let's navigate an example: consider a pipe organ like the one mentioned in the \textit{Six Ideas} textbook, particularly a pipe of length $L$. If both ends of the pipe are either closed or open, then the ends of the pipe must both be nodes (if closed) or antinodes (if open). This means that this restriction implies that the length of the pipe corresponds to half a wavelength, or $\lambda / 2$. This means that the fundamental frequency of the pipe is $f = v/2L$, where $v$ is the speed of sound in the pipe. We can also satisfy these conditions if we multiply the frequency by a natural number, resulting in harmonics that are integer multiples of the fundamental frequency.
+
+%If one end is open and the other is closed, the open end corresponds to an antinode of the (sound) wave, while the closed ends corresponds to a node. If we look at the graph of a sine function, we see that the first antinode occurs a quarter way through its cycle. Note also that the first node occurs at the start, so the length of the pipe is $\lambda / 4$. This means that the fundamental frequency of the pipe is $f = v/4L$, where $v$ is the speed of sound in the pipe. 
+
+% \vspace{1em}
+
+% Be careful, though! If we simply double the fundamental frequency, we get a solution for having both ends of the pipe organ open or closed, but not one of each. The same reasoning applies for any even multiple of the fundamental frequency, which is why we only get odd harmonics for a pipe organ with one end open and one end closed. This is not an issue if we consider both ends open or closed (why?). 
+
+\begin{tcolorbox}[colframe=blue!50!black, arc=2mm, title=\textsc{Practice 2}]
+	The A string on a cello produces a fundamental frequency of 220 Hz. If I gently put my finger somewhere on the string, I can generate an ethereal 880 Hz sound. If the length of the string is $L$, where on the string am I putting my finger? (\textit{Hint: think about the boundary conditions of the string and which of the harmonics satisfy these boundary conditions. There are two possible answers.})
+\end{tcolorbox}
+
+\subsection*{A Taster of Taylor Series (Enrichment)}
+
+Taylor series are an extremely important of physics, as they allow us to approximate functions using polynomials, which are generally much easier to work with. In general, the Taylor series of a function $f(x)$ about a point $a$ is given by
+\begin{equation*}
+	f(x) = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f'''(a)}{3!}(x-a)^3 + \ldots = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x-a)^n, \tag{Taylor Series}
+\end{equation*}
+where $f^{(n)}(a)$ denotes the $n$th derivative of $f$ evaluated at $a$, and $n! = n\cdot (n-1)\cdot(n-2)\cdot \ldots \cdot 2\cdot 1$ denotes $n$ factorial. The Taylor series is a polynomial approximation of $f(x)$ about $a$, and the more terms we include, the better the approximation. Note that most of the utility of Taylor series comes from truncating the series at some point, which is allowed if $x-a \ll 1$. 
+
+\vspace{1em}
+
+There is an intuitive way to understand the Taylor series. Remember that, in approximating a function with a polynomial, we want to ensure that the function's behavior is identical to its polynomial approximation. This means that the approximation should have the same value as the function at the point of interest (zeroth derivative), the same slope (first derivative), the same curvature (second derivative), and so on. If you would like to, convince yourself the formula above does satisfy this criterion by taking and matching successive derivatives of the Taylor series with the derivatives of the function at $x=a$.
+
+\vspace{1em}
+
+You may have already seen Taylor series at work secretly. For example, the binomial approximation 
+\[
+(1+x)^n \simeq 1+nx
+\]
+is a Taylor series approximation of $(1+x)^n$ about $x=0$ truncated at the linear term. Its full expansion is 
+\[
+(1+x)^n = 1 + nx + \frac{n(n-1)}{2!}x^2 + \frac{n(n-1)(n-2)}{3!}x^3 + \ldots = \sum_{k=0}^{\infty} \frac{n!}{k!(n-k)!}x^k.
+\]
+
+To really show off the binomial approximation, let's calculate $1.001^{100}$ and compare it to the binomial approximation. First, we have
+\[
+1.001^{100} \simeq 1.105
+\]
+as the true value. The binomial approximation gives us
+\[
+1 + 100(0.001) = 1.1,
+\]
+giving us an error of about 0.45\%. Not bad for a linear approximation!
+
+\vspace{2em}
+
+\begin{tcolorbox}[colframe=blue!50!black, arc=2mm, title=\textsc{Practice 3 (Enrichment)}]
+	The reason I brought up Taylor series here is because the Rayleigh criterion mentioned in Q3 relates the diffraction limit of an aperture to the wavelength of light and the aperture size \textit{nonlinearly}. The nonlinear nature can make calculations annoying, especially at smaller angular separations. The Rayleigh criterion is given by
+	\[
+		\sin \theta = 1.22 \frac{\lambda}{D},
+	\]
+	where $\theta$ is the angular separation between two objects of interest, $\lambda$ is the wavelength of light, and $D$ is the diameter of the aperture.
+	\begin{enumerate}[label=(\alph*)]
+		\item Taylor expand $\sin \theta$ about $\theta = 0$ to first order and find the minimum aperture diameter $D$ that can resolve two objects separated by $\theta = 1$ arcsecond using light of wavelength $\lambda = 500$ nm.
+		\item For larger values of $\theta$, truncating the series at first order may be insufficient. Find the next nonzero term in the Taylor series for $\sin\theta$ and compare the error between the series in (a) containing only one term, the new series, and the true value for $\theta=\pi / 4$.
+	\end{enumerate} 
+\end{tcolorbox}
+
+	
+\end{document}
